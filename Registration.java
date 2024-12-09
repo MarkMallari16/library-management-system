@@ -4,15 +4,15 @@
  */
 package bookingsystem;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Melodina
  */
 public class Registration extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Registration
-     */
+    public static Login log;
+    
     public Registration() {
         initComponents();
     }
@@ -26,21 +26,131 @@ public class Registration extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtFieldEmail = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txtFieldUsername = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        txtFieldPassword = new javax.swing.JPasswordField();
+        btnRegister = new javax.swing.JButton();
+        lblLoginLink = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Regiister");
+
+        jLabel1.setFont(new java.awt.Font("Poppins Black", 0, 24)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/library.png"))); // NOI18N
+        jLabel1.setText("Registration");
+
+        jLabel2.setText("Email:");
+
+        jLabel3.setText("Username:");
+
+        jLabel4.setText("Password:");
+
+        btnRegister.setBackground(new java.awt.Color(51, 51, 51));
+        btnRegister.setFont(new java.awt.Font("Poppins Medium", 0, 12)); // NOI18N
+        btnRegister.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegister.setText("Register");
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
+            }
+        });
+
+        lblLoginLink.setText("Already have an account? Login");
+        lblLoginLink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLoginLinkMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(97, 97, 97)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2)
+                            .addComponent(txtFieldEmail)
+                            .addComponent(jLabel3)
+                            .addComponent(txtFieldUsername)
+                            .addComponent(jLabel4)
+                            .addComponent(txtFieldPassword)
+                            .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addComponent(lblLoginLink)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblLoginLink)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        String email = txtFieldEmail.getText();
+        String username = txtFieldUsername.getText();
+        String passwordString;
+        char[] passwordChar = txtFieldPassword.getPassword();
+        passwordString = new String(passwordChar);
+        if (email.isEmpty() || username.isEmpty() || passwordString.isEmpty()){
+            JOptionPane.showMessageDialog(this, "All fields must be filled! Try Again.");
+            return;
+        }
+        String sql = "INSERT INTO  users(email,username,password,role) VALUES(?,?,?,?)";
+        
+        Database db = new Database();
+        int rowsAffected = db.executeUpdate(sql, email, username, passwordString, "user");
+        
+        if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(this, "Registration successful!");
+            
+            txtFieldEmail.setText(null);
+            txtFieldUsername.setText(null);
+            txtFieldPassword.setText(null);
+        } else {
+            JOptionPane.showMessageDialog(this, "Registration failed!");
+        }
+
+    }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void lblLoginLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginLinkMouseClicked
+      if (log == null || !log.isVisible()){
+          log = new Login();
+          this.dispose();
+          log.setVisible(true);
+      }
+    }//GEN-LAST:event_lblLoginLinkMouseClicked
 
     /**
      * @param args the command line arguments
@@ -78,5 +188,14 @@ public class Registration extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegister;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel lblLoginLink;
+    private javax.swing.JTextField txtFieldEmail;
+    private javax.swing.JPasswordField txtFieldPassword;
+    private javax.swing.JTextField txtFieldUsername;
     // End of variables declaration//GEN-END:variables
 }

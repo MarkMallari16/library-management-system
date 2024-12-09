@@ -14,7 +14,9 @@ public class Login extends javax.swing.JFrame {
 
     public static String username, passwordString;
     public static char[] passwordChar;
-    public static AdminDashboard dashboard;
+    public static AdminDashboard admin;
+    public static UserDashboard user;
+    public static Registration reg;
 
     public Login() {
         initComponents();
@@ -37,21 +39,29 @@ public class Login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         loginBtn = new javax.swing.JButton();
         txtFieldPassword = new javax.swing.JPasswordField();
+        lblRegisterLink = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/library.png"))); // NOI18N
         jLabel1.setText("Library Management System");
+
+        txtFieldUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldUsernameActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Username:");
 
         jLabel3.setText("Password:");
 
         loginBtn.setBackground(new java.awt.Color(51, 51, 51));
-        loginBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        loginBtn.setFont(new java.awt.Font("Poppins Medium", 1, 12)); // NOI18N
         loginBtn.setForeground(new java.awt.Color(255, 255, 255));
         loginBtn.setText("LOGIN");
         loginBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -60,20 +70,38 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        txtFieldPassword.setFont(new java.awt.Font("Poppins Black", 0, 12)); // NOI18N
+        txtFieldPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldPasswordActionPerformed(evt);
+            }
+        });
+
+        lblRegisterLink.setText("Dont have an account? Register");
+        lblRegisterLink.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblRegisterLinkMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtFieldUsername)
                     .addComponent(jLabel3)
                     .addComponent(loginBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtFieldPassword))
-                .addContainerGap(95, Short.MAX_VALUE))
+                    .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblRegisterLink)
+                .addGap(147, 147, 147))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,7 +118,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(txtFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRegisterLink)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();
@@ -105,34 +135,95 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Must filled all fields!");
             return;
         }
-        
-        String[] userInfo = null;
+        Database db = new Database();
+        String sqlUser = "SELECT * FROM users WHERE username = ? AND password = ?";
+        boolean isValid = db.validateLogin(sqlUser, username, passwordString);
 
-        for (int userId : Database.userDb.keySet()) {
-            String[] currentUser = Database.userDb.get(userId);
-            if (currentUser[2].equals(username)) {
-                userInfo = currentUser;
-                break;
+        if (!isValid) {
+            JOptionPane.showMessageDialog(this, "Username or password is invalid! Try again.");
+            return;
+        }
+        String sql = "SELECT role FROM users WHERE username = ? AND password = ?";
+
+        String role = db.getUserRole(sql, username, passwordString);
+
+        if (role != null) {
+            JOptionPane.showMessageDialog(this, "Login successfull!");
+
+            switch (role) {
+                case "admin":
+                    openAdminDashboard();
+                    break;
+
+                case "user":
+                    openUserDashborad();
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Unknown role. Access denied!");
+                    break;
             }
+            this.dispose();
         }
 
-        if (userInfo != null && userInfo[3].equals(passwordString)) {
-            String role = userInfo[4];
-            JOptionPane.showMessageDialog(this, role.toUpperCase() + " login successfull.");
-            if (role.equals("admin")) {
-                if (dashboard == null || !dashboard.isVisible()) {
-                    dashboard = new AdminDashboard();
-
-                    this.dispose();
-                    dashboard.setVisible(true);
-                }
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Invalid Username or Password try again.");
-
-        }
+//        String[] userInfo = null;
+//        
+//        for (int userId : Database.userDb.keySet()) {
+//            String[] currentUser = Database.userDb.get(userId);
+//            if (currentUser[2].equals(username)) {
+//                userInfo = currentUser;
+//                break;
+//            }
+//        }
+//        
+//        if (userInfo != null && userInfo[3].equals(passwordString)) {
+//            String role = userInfo[4];
+//            JOptionPane.showMessageDialog(this, role.toUpperCase() + " login successfull.");
+//            if (role.equals("admin")) {
+//                if (dashboard == null || !dashboard.isVisible()) {
+//                    dashboard = new AdminDashboard();
+//                    
+//                    this.dispose();
+//                    dashboard.setVisible(true);
+//                }
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(this, "Invalid Username or Password try again.");
+//            
+//        }
 
     }//GEN-LAST:event_loginBtnActionPerformed
+    private void openAdminDashboard() {
+        if (admin == null || !admin.isVisible()) {
+            admin = new AdminDashboard();
+
+            this.dispose();
+            admin.setVisible(true);
+        }
+    }
+
+    private void openUserDashborad() {
+        if (user == null || !user.isVisible()) {
+            user = new UserDashboard();
+
+            this.dispose();
+            user.setVisible(true);
+        }
+    }
+    private void txtFieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldUsernameActionPerformed
+        loginBtnActionPerformed(evt);
+    }//GEN-LAST:event_txtFieldUsernameActionPerformed
+
+    private void txtFieldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldPasswordActionPerformed
+        loginBtnActionPerformed(evt);
+    }//GEN-LAST:event_txtFieldPasswordActionPerformed
+
+    private void lblRegisterLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRegisterLinkMouseClicked
+        if (reg == null || !reg.isVisible()) {
+            reg = new Registration();
+            this.dispose();
+            reg.setVisible(true);
+        }
+    }//GEN-LAST:event_lblRegisterLinkMouseClicked
 
     /**
      * @param args the command line arguments
@@ -174,6 +265,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblRegisterLink;
     private javax.swing.JButton loginBtn;
     private javax.swing.JPasswordField txtFieldPassword;
     private javax.swing.JTextField txtFieldUsername;

@@ -168,7 +168,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
-        jLabel1.setText("Library System");
+        jLabel1.setText("Dashboard");
 
         bookTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
