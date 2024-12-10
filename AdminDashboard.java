@@ -4,13 +4,15 @@
  */
 package bookingsystem;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import java.sql.*;
 
 public class AdminDashboard extends javax.swing.JFrame {
+
     public static Login log;
     public static AddForm addForm;
-    
+
     public AdminDashboard() {
         initComponents();
         loadBookData();
@@ -240,33 +242,39 @@ public class AdminDashboard extends javax.swing.JFrame {
         String[] colums = {"Book ID", "Title", "Author", "Publisher", "Genre", "Total Copies", "Edition", "Year of Publication", "Availability"};
         DefaultTableModel model = new DefaultTableModel(colums, 0);
 
-        for (int bookId : Database.bookDb.keySet()) {
-            String[] bookData = Database.bookDb.get(bookId);
-
-            if (bookData != null) {
-                model.addRow(new Object[]{
-                    bookId,
-                    bookData[0],
-                    bookData[1],
-                    bookData[2],
-                    bookData[3],
-                    bookData[4],
-                    bookData[5],
-                    bookData[6],
-                    bookData[7],}
-                );
+        try {
+            Database db = new Database();
+            String sql = "SELECT * FROM books";
+            try (Connection conn = db.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    model.addRow(new Object[]{
+                        rs.getInt("book_id"),
+                        rs.getString("book_title"),
+                        rs.getString("book_author"),
+                        rs.getString("book_publisher"),
+                        rs.getString("book_genre"),
+                        rs.getInt("book_total_copies"),
+                        rs.getString("book_edition"),
+                        rs.getInt("book_year_of_publication"),
+                        rs.getString("book_availability")
+                    });
+                }
             }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Failed to load book data: " + ex.getMessage());
         }
-
+        
         bookTable.setModel(model);
-
     }
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-        if (log == null || !log.isVisible()){
+        if (log == null || !log.isVisible()) {
             log = new Login();
+            JOptionPane.showMessageDialog(this, "Successfully Logout.");
             Dispose();
+
             log.setVisible(true);
-            
+
         }
     }//GEN-LAST:event_logoutBtnActionPerformed
 

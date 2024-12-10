@@ -123,6 +123,7 @@ public class Registration extends javax.swing.JFrame {
         String passwordString;
         char[] passwordChar = txtFieldPassword.getPassword();
         passwordString = new String(passwordChar);
+        
         if (email.isEmpty() || username.isEmpty() || passwordString.isEmpty()){
             JOptionPane.showMessageDialog(this, "All fields must be filled! Try Again.");
             return;

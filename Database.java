@@ -20,7 +20,7 @@ public class Database {
         userDb.put(adminId, adminInfos);
     }
 
-    private Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 

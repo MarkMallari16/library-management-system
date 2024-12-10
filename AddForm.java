@@ -175,31 +175,29 @@ public class AddForm extends javax.swing.JFrame {
         edition = txtFieldEdition.getText();
         yearOfPublication = txtFieldPublication.getText();
         availability = txtFieldAvailability.getText();
+        String sql = "INSERT INTO books(book_title,book_author,book_publisher,book_genre,book_total_copies,book_edition,book_year_of_publication,book_availability)"
+                + "VALUES(?,?,?,?,?,?,?,?)";
+        Object[] datas = {title, author, publisher, genre, totalCopies, edition, yearOfPublication, availability};
+        Database db = new Database();
+        int rowsAffected = db.executeUpdate(sql,datas);
 
-        String[] bookDatas = {title, author, publisher, genre, totalCopies, edition, yearOfPublication, availability};
-
-        Database.bookDb.put(bookId, bookDatas);
-        bookId++;
-        
-        JOptionPane.showMessageDialog(this, "Book added successfully");
-
-        txtFieldTitle.setText(null);
-        txtFieldAuthor.setText(null);
-        txtFieldPublisher.setText(null);
-        txtFieldGenre.setText(null);
-        txtFieldTotalCopies.setText(null);
-        txtFieldEdition.setText(null);
-        txtFieldPublication.setText(null);
-        txtFieldAvailability.setText(null);
-
-        navigateToDashboard();
-
-
+        if (rowsAffected > 0) {
+            txtFieldTitle.setText(null);
+            txtFieldAuthor.setText(null);
+            txtFieldPublisher.setText(null);
+            txtFieldGenre.setText(null);
+            txtFieldTotalCopies.setText(null);
+            txtFieldEdition.setText(null);
+            txtFieldPublication.setText(null);
+            txtFieldAvailability.setText(null);
+            JOptionPane.showMessageDialog(this, "Book added successfully");
+            navigateToDashboard();
+        }
     }//GEN-LAST:event_addBtnActionPerformed
     public void navigateToDashboard() {
         if (checkDashboard == null || !checkDashboard.isVisible()) {
             AdminDashboard dashboard = new AdminDashboard();
-       
+
             Dispose();
             dashboard.setVisible(true);
         }
