@@ -6,14 +6,11 @@ package bookingsystem;
 
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Melodina
- */
+
 public class AdminDashboard extends javax.swing.JFrame {
-
+    public static Login log;
     public static AddForm addForm;
-
+    
     public AdminDashboard() {
         initComponents();
         loadBookData();
@@ -265,7 +262,12 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     }
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
-
+        if (log == null || !log.isVisible()){
+            log = new Login();
+            Dispose();
+            log.setVisible(true);
+            
+        }
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void deleteNavigationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteNavigationActionPerformed
