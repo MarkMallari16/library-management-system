@@ -70,4 +70,19 @@ public class Database {
             return null;
         }
     }
+
+    public int deleteData(String sql, int id) {
+        int rowAffected = 0;
+        try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            rowAffected = pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage());
+            return 0;
+
+        }
+        return rowAffected;
+    }
 }

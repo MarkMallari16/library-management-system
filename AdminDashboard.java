@@ -9,9 +9,9 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 
 public class AdminDashboard extends javax.swing.JFrame {
-
     public static Login log;
     public static AddForm addForm;
+    public static DeleteForm deleteFormCheck;
 
     public AdminDashboard() {
         initComponents();
@@ -53,6 +53,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Admin Dashboard");
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setForeground(new java.awt.Color(204, 204, 204));
@@ -279,7 +280,11 @@ public class AdminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void deleteNavigationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteNavigationActionPerformed
-        // TODO add your handling code here:
+      if (deleteFormCheck == null || !deleteFormCheck.isVisible()){
+          DeleteForm deleteForm = new DeleteForm();
+          Dispose();
+          deleteForm.setVisible(true);
+      }
     }//GEN-LAST:event_deleteNavigationActionPerformed
 
     /**
