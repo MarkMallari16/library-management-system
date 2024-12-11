@@ -4,15 +4,22 @@
  */
 package bookingsystem;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 
 public class AdminDashboard extends javax.swing.JFrame {
+    
+    public static int bookId, totalCopies, yearOfPublication;
+    public static String title, author, publisher, genre, edition, availability;
+    
     public static Login log;
-    public static AddForm addForm;
+    public static AddBookForm addForm;
+    public static UpdateBookForm updateFormCheck;
     public static DeleteForm deleteFormCheck;
-
+    
     public AdminDashboard() {
         initComponents();
         loadBookData();
@@ -219,30 +226,34 @@ public class AdminDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void updateNavigationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateNavigationActionPerformed
-        // TODO add your handling code here:
+        if (updateFormCheck == null || !updateFormCheck.isVisible()) {
+//            UpdateBookForm updateForm = new UpdateBookForm();
+            Dispose();
+//            updateForm.setVisible(true);
+        }
     }//GEN-LAST:event_updateNavigationActionPerformed
 
     private void dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_dashboardActionPerformed
 
     private void addNavigationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNavigationActionPerformed
         if (addForm == null || !addForm.isVisible()) {
-            addForm = new AddForm();
+            addForm = new AddBookForm();
             loadBookData();
             Dispose();
             addForm.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_addNavigationActionPerformed
     public void Dispose() {
         this.dispose();
     }
-
+    
     public void loadBookData() {
         String[] colums = {"Book ID", "Title", "Author", "Publisher", "Genre", "Total Copies", "Edition", "Year of Publication", "Availability"};
         DefaultTableModel model = new DefaultTableModel(colums, 0);
-
+        
         try {
             Database db = new Database();
             String sql = "SELECT * FROM books";
@@ -267,24 +278,48 @@ public class AdminDashboard extends javax.swing.JFrame {
         }
         
         bookTable.setModel(model);
+        
+        bookTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = bookTable.getSelectedRow();
+                if (selectedRow >= 0) {
+                    bookId = (Integer) bookTable.getValueAt(selectedRow, 0);
+                    title = (String) bookTable.getValueAt(selectedRow, 1);
+                    author = (String) bookTable.getValueAt(selectedRow, 2);
+                    publisher = (String) bookTable.getValueAt(selectedRow, 3);
+                    genre = (String) bookTable.getValueAt(selectedRow, 4);
+                    totalCopies = (Integer) bookTable.getValueAt(selectedRow, 5);
+                    edition = (String) bookTable.getValueAt(selectedRow, 6);
+                    yearOfPublication = (Integer) bookTable.getValueAt(selectedRow, 7);
+                    availability = (String) bookTable.getValueAt(selectedRow, 8);
+                    
+                    if (updateFormCheck == null || !updateFormCheck.isVisible()) {
+                        UpdateBookForm update = new UpdateBookForm(bookId,title,author,publisher,genre,totalCopies,edition,yearOfPublication,availability);
+                        Dispose();
+                        update.setVisible(true);
+                    }
+                }
+            }
+        });
     }
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         if (log == null || !log.isVisible()) {
             log = new Login();
             JOptionPane.showMessageDialog(this, "Successfully Logout.");
             Dispose();
-
+            
             log.setVisible(true);
-
+            
         }
     }//GEN-LAST:event_logoutBtnActionPerformed
 
     private void deleteNavigationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteNavigationActionPerformed
-      if (deleteFormCheck == null || !deleteFormCheck.isVisible()){
-          DeleteForm deleteForm = new DeleteForm();
-          Dispose();
-          deleteForm.setVisible(true);
-      }
+        if (deleteFormCheck == null || !deleteFormCheck.isVisible()) {
+            DeleteForm deleteForm = new DeleteForm();
+            Dispose();
+            deleteForm.setVisible(true);
+        }
     }//GEN-LAST:event_deleteNavigationActionPerformed
 
     /**

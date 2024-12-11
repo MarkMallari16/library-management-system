@@ -71,6 +71,21 @@ public class Database {
         }
     }
 
+    public int updateData(String sql, Object... params) {
+        int rowsAffected = 0;
+        try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            for (int i = 0; i < params.length; i++) {
+                pstmt.setObject(i + 1, params[i]);
+            }
+            rowsAffected = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage());
+            return 0;
+        }
+        return rowsAffected;
+    }
+
     public int deleteData(String sql, int id) {
         int rowAffected = 0;
         try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
