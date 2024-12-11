@@ -1,4 +1,4 @@
-package bookingsystem;
+package ordering_system;
 
 public class Main {
 
