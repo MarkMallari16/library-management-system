@@ -4,6 +4,7 @@
  */
 package bookingsystem;
 
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
@@ -169,7 +170,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 12, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,7 +205,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 847, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -214,11 +215,11 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -274,9 +275,13 @@ public class AdminDashboard extends javax.swing.JFrame {
                     ImageIcon bookImage = null;
                     String imagePath = rs.getString("book_image");
 
-                    if (imagePath != null || !imagePath.isEmpty()) {
-                        bookImage = new ImageIcon(imagePath);
+                    if (imagePath != null) {
+                        ImageIcon originalIcon = new ImageIcon(imagePath);
+                        Image scaledImage = originalIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+
+                        bookImage = new ImageIcon(scaledImage);
                     }
+
                     model.addRow(new Object[]{
                         rs.getInt("book_id"),
                         bookImage,
@@ -295,17 +300,21 @@ public class AdminDashboard extends javax.swing.JFrame {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Failed to load book data: " + ex.getMessage());
         }
+        bookTable.setRowHeight(100);
 
         bookTable.setModel(model);
-        JScrollPane scrollPane = new JScrollPane(bookTable);
 
         bookTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int selectedRow = bookTable.getSelectedRow();
+
+                ImageIcon bookImageIcon = (ImageIcon) bookTable.getValueAt(selectedRow, 1);
+                bookImage = (bookImageIcon != null) ? bookImageIcon.getDescription() : null;
+
                 if (selectedRow >= 0) {
                     bookId = (Integer) bookTable.getValueAt(selectedRow, 0);
-                    bookImage = (String) bookTable.getValueAt(selectedRow, 1);
+
                     title = (String) bookTable.getValueAt(selectedRow, 2);
                     author = (String) bookTable.getValueAt(selectedRow, 3);
                     publisher = (String) bookTable.getValueAt(selectedRow, 4);
