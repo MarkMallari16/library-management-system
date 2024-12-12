@@ -4,14 +4,16 @@
  */
 package bookingsystem;
 
+import java.io.File;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 public class AddBookForm extends javax.swing.JFrame {
-
+    
     public String title, author, publisher, genre, totalCopies, edition, yearOfPublication, availability;
     public static int bookId = 1000;
-    public static AdminDashboard checkDashboard;
-
+    public static AdminDashboard adminCheck;
+    
     public AddBookForm() {
         initComponents();
     }
@@ -43,31 +45,42 @@ public class AddBookForm extends javax.swing.JFrame {
         txtFieldAvailability = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         addBtn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+        uploadFileBtn = new javax.swing.JButton();
+        txtFieldFilePath = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel1.setText("Add Book");
 
+        jLabel2.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel2.setText("Title:");
 
+        jLabel3.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel3.setText("Author:");
 
+        jLabel4.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel4.setText("Publisher:");
 
+        jLabel5.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel5.setText("Total Copies:");
 
+        jLabel6.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel6.setText("Edition:");
 
+        jLabel7.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel7.setText("Year of Publication:");
 
+        jLabel8.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel8.setText("Genre:");
 
+        jLabel9.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel9.setText("Availability:");
 
         addBtn.setBackground(new java.awt.Color(51, 51, 51));
-        addBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        addBtn.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         addBtn.setForeground(new java.awt.Color(255, 255, 255));
         addBtn.setText("ADD");
         addBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -76,8 +89,36 @@ public class AddBookForm extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("BACK");
+        btnBack.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
+        btnBack.setText("BACK");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        uploadFileBtn.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        uploadFileBtn.setText("Upload File");
+        uploadFileBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                uploadFileBtnMouseClicked(evt);
+            }
+        });
+        uploadFileBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadFileBtnActionPerformed(evt);
+            }
+        });
+
+        txtFieldFilePath.setEnabled(false);
+        txtFieldFilePath.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFieldFilePathActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+        jLabel10.setText("Select File:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,30 +126,36 @@ public class AddBookForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(txtFieldTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(txtFieldAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)
-                            .addComponent(txtFieldPublisher, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(txtFieldGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(txtFieldTotalCopies, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(txtFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(txtFieldPublication, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)
-                            .addComponent(txtFieldAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(addBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtFieldFilePath, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(uploadFileBtn))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(txtFieldTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)
+                                .addComponent(txtFieldAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4)
+                                .addComponent(txtFieldPublisher, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8)
+                                .addComponent(txtFieldGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(txtFieldTotalCopies, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6)
+                                .addComponent(txtFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7)
+                                .addComponent(txtFieldPublication, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel9)
+                                .addComponent(txtFieldAvailability, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(addBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -116,7 +163,13 @@ public class AddBookForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(9, 9, 9)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(uploadFileBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFieldFilePath, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
@@ -158,9 +211,9 @@ public class AddBookForm extends javax.swing.JFrame {
                         .addComponent(txtFieldGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(addBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,12 +228,32 @@ public class AddBookForm extends javax.swing.JFrame {
         edition = txtFieldEdition.getText();
         yearOfPublication = txtFieldPublication.getText();
         availability = txtFieldAvailability.getText();
-        String sql = "INSERT INTO books(book_title,book_author,book_publisher,book_genre,book_total_copies,book_edition,book_year_of_publication,book_availability)"
-                + "VALUES(?,?,?,?,?,?,?,?)";
-        Object[] datas = {title, author, publisher, genre, totalCopies, edition, yearOfPublication, availability};
+        
+        String filePath = txtFieldFilePath.getText();
+        
+        if (title.isEmpty() || author.isEmpty() || publisher.isEmpty() || genre.isEmpty()
+                || totalCopies.isEmpty() || edition.isEmpty() || yearOfPublication.isEmpty() || availability.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields!");
+            return;
+        }
+        
+        if (!filePath.isEmpty()) {
+            File file = new File(filePath);
+            
+            if (!file.exists()) {
+                JOptionPane.showMessageDialog(this, "File does not exist!");
+                return;
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a file first!");
+        }
+        String sql = "INSERT INTO books(book_image,book_title,book_author,book_publisher,book_genre,book_total_copies,book_edition,book_year_of_publication,book_availability)"
+                + "VALUES(?,?,?,?,?,?,?,?,?)";
+        
+        Object[] datas = {filePath, title, author, publisher, genre, totalCopies, edition, yearOfPublication, availability};
         Database db = new Database();
-        int rowsAffected = db.executeUpdate(sql,datas);
-
+        int rowsAffected = db.executeUpdate(sql, datas);
+        
         if (rowsAffected > 0) {
             txtFieldTitle.setText(null);
             txtFieldAuthor.setText(null);
@@ -190,19 +263,44 @@ public class AddBookForm extends javax.swing.JFrame {
             txtFieldEdition.setText(null);
             txtFieldPublication.setText(null);
             txtFieldAvailability.setText(null);
+            txtFieldFilePath.setText(null);
+            
             JOptionPane.showMessageDialog(this, "Book added successfully");
             navigateToDashboard();
         }
     }//GEN-LAST:event_addBtnActionPerformed
-    public void navigateToDashboard() {
-        if (checkDashboard == null || !checkDashboard.isVisible()) {
-            AdminDashboard dashboard = new AdminDashboard();
 
+    private void uploadFileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadFileBtnActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        int returnValue = fileChooser.showOpenDialog(this);
+        
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            txtFieldFilePath.setText(selectedFile.getAbsolutePath());
+        }
+
+    }//GEN-LAST:event_uploadFileBtnActionPerformed
+
+    private void uploadFileBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_uploadFileBtnMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_uploadFileBtnMouseClicked
+
+    private void txtFieldFilePathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFieldFilePathActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFieldFilePathActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+       navigateToDashboard();
+    }//GEN-LAST:event_btnBackActionPerformed
+    public void navigateToDashboard() {
+        if (adminCheck == null || !adminCheck.isVisible()) {
+            AdminDashboard dashboard = new AdminDashboard();
+            
             Dispose();
             dashboard.setVisible(true);
         }
     }
-
+    
     public void Dispose() {
         this.dispose();
     }
@@ -245,8 +343,9 @@ public class AddBookForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnBack;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -258,10 +357,12 @@ public class AddBookForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtFieldAuthor;
     private javax.swing.JTextField txtFieldAvailability;
     private javax.swing.JTextField txtFieldEdition;
+    private javax.swing.JTextField txtFieldFilePath;
     private javax.swing.JTextField txtFieldGenre;
     private javax.swing.JTextField txtFieldPublication;
     private javax.swing.JTextField txtFieldPublisher;
     private javax.swing.JTextField txtFieldTitle;
     private javax.swing.JTextField txtFieldTotalCopies;
+    private javax.swing.JButton uploadFileBtn;
     // End of variables declaration//GEN-END:variables
 }

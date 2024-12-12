@@ -9,17 +9,19 @@ import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
+import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
 
 public class AdminDashboard extends javax.swing.JFrame {
-    
+
     public static int bookId, totalCopies, yearOfPublication;
-    public static String title, author, publisher, genre, edition, availability;
-    
+    public static String bookImage, title, author, publisher, genre, edition, availability;
+
     public static Login log;
     public static AddBookForm addForm;
     public static UpdateBookForm updateFormCheck;
     public static DeleteForm deleteFormCheck;
-    
+
     public AdminDashboard() {
         initComponents();
         loadBookData();
@@ -45,7 +47,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         deleteNavigation = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         bookTable = new javax.swing.JTable();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -188,7 +190,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(bookTable);
+        jScrollPane1.setViewportView(bookTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -202,7 +204,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 698, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -211,15 +213,16 @@ public class AdminDashboard extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(45, 45, 45)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2)
-                .addContainerGap())
         );
 
         pack();
@@ -243,24 +246,40 @@ public class AdminDashboard extends javax.swing.JFrame {
             loadBookData();
             Dispose();
             addForm.setVisible(true);
-            
+
         }
     }//GEN-LAST:event_addNavigationActionPerformed
     public void Dispose() {
         this.dispose();
     }
-    
+
     public void loadBookData() {
-        String[] colums = {"Book ID", "Title", "Author", "Publisher", "Genre", "Total Copies", "Edition", "Year of Publication", "Availability"};
-        DefaultTableModel model = new DefaultTableModel(colums, 0);
-        
+        String[] colums = {"Book ID", "Image", "Title", "Author", "Publisher", "Genre", "Total Copies", "Edition", "Year of Publication", "Availability"};
+        DefaultTableModel model = new DefaultTableModel(colums, 0) {
+            @Override
+            public Class<?> getColumnClass(int column) {
+                if (column == 1) {
+                    return ImageIcon.class;
+                }
+                return Object.class;
+            }
+        };
+
         try {
             Database db = new Database();
             String sql = "SELECT * FROM books";
             try (Connection conn = db.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql); ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
+
+                    ImageIcon bookImage = null;
+                    String imagePath = rs.getString("book_image");
+
+                    if (imagePath != null || !imagePath.isEmpty()) {
+                        bookImage = new ImageIcon(imagePath);
+                    }
                     model.addRow(new Object[]{
                         rs.getInt("book_id"),
+                        bookImage,
                         rs.getString("book_title"),
                         rs.getString("book_author"),
                         rs.getString("book_publisher"),
@@ -276,26 +295,28 @@ public class AdminDashboard extends javax.swing.JFrame {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Failed to load book data: " + ex.getMessage());
         }
-        
+
         bookTable.setModel(model);
-        
+        JScrollPane scrollPane = new JScrollPane(bookTable);
+
         bookTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int selectedRow = bookTable.getSelectedRow();
                 if (selectedRow >= 0) {
                     bookId = (Integer) bookTable.getValueAt(selectedRow, 0);
-                    title = (String) bookTable.getValueAt(selectedRow, 1);
-                    author = (String) bookTable.getValueAt(selectedRow, 2);
-                    publisher = (String) bookTable.getValueAt(selectedRow, 3);
-                    genre = (String) bookTable.getValueAt(selectedRow, 4);
-                    totalCopies = (Integer) bookTable.getValueAt(selectedRow, 5);
-                    edition = (String) bookTable.getValueAt(selectedRow, 6);
-                    yearOfPublication = (Integer) bookTable.getValueAt(selectedRow, 7);
-                    availability = (String) bookTable.getValueAt(selectedRow, 8);
-                    
+                    bookImage = (String) bookTable.getValueAt(selectedRow, 1);
+                    title = (String) bookTable.getValueAt(selectedRow, 2);
+                    author = (String) bookTable.getValueAt(selectedRow, 3);
+                    publisher = (String) bookTable.getValueAt(selectedRow, 4);
+                    genre = (String) bookTable.getValueAt(selectedRow, 5);
+                    totalCopies = (Integer) bookTable.getValueAt(selectedRow, 6);
+                    edition = (String) bookTable.getValueAt(selectedRow, 7);
+                    yearOfPublication = (Integer) bookTable.getValueAt(selectedRow, 8);
+                    availability = (String) bookTable.getValueAt(selectedRow, 9);
+
                     if (updateFormCheck == null || !updateFormCheck.isVisible()) {
-                        UpdateBookForm update = new UpdateBookForm(bookId,title,author,publisher,genre,totalCopies,edition,yearOfPublication,availability);
+                        UpdateBookForm update = new UpdateBookForm(bookId, title, author, publisher, genre, totalCopies, edition, yearOfPublication, availability);
                         Dispose();
                         update.setVisible(true);
                     }
@@ -308,9 +329,9 @@ public class AdminDashboard extends javax.swing.JFrame {
             log = new Login();
             JOptionPane.showMessageDialog(this, "Successfully Logout.");
             Dispose();
-            
+
             log.setVisible(true);
-            
+
         }
     }//GEN-LAST:event_logoutBtnActionPerformed
 
@@ -369,6 +390,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JButton updateNavigation;
