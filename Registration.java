@@ -1,18 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package bookingsystem;
 
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Melodina
- */
 public class Registration extends javax.swing.JFrame {
-    public static Login log;
-    
+
+    public static Login logCheck;
+
     public Registration() {
         initComponents();
     }
@@ -123,22 +116,23 @@ public class Registration extends javax.swing.JFrame {
         String passwordString;
         char[] passwordChar = txtFieldPassword.getPassword();
         passwordString = new String(passwordChar);
-        
-        if (email.isEmpty() || username.isEmpty() || passwordString.isEmpty()){
+
+        if (email.isEmpty() || username.isEmpty() || passwordString.isEmpty()) {
             JOptionPane.showMessageDialog(this, "All fields must be filled! Try Again.");
             return;
         }
         String sql = "INSERT INTO  users(email,username,password,role) VALUES(?,?,?,?)";
-        
+
         Database db = new Database();
         int rowsAffected = db.executeUpdate(sql, email, username, passwordString, "user");
-        
+
         if (rowsAffected > 0) {
             JOptionPane.showMessageDialog(this, "Registration successful!");
-            
+
             txtFieldEmail.setText(null);
             txtFieldUsername.setText(null);
             txtFieldPassword.setText(null);
+            navigateToLogin();
         } else {
             JOptionPane.showMessageDialog(this, "Registration failed!");
         }
@@ -146,12 +140,15 @@ public class Registration extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void lblLoginLinkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginLinkMouseClicked
-      if (log == null || !log.isVisible()){
-          log = new Login();
-          this.dispose();
-          log.setVisible(true);
-      }
+        navigateToLogin();
     }//GEN-LAST:event_lblLoginLinkMouseClicked
+    private void navigateToLogin() {
+        if (logCheck == null || !logCheck.isVisible()) {
+            Login log = new Login();
+            this.dispose();
+            log.setVisible(true);
+        }
+    }
 
     /**
      * @param args the command line arguments

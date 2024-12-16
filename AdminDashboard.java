@@ -314,7 +314,6 @@ public class AdminDashboard extends javax.swing.JFrame {
 
                 if (selectedRow >= 0) {
                     bookId = (Integer) bookTable.getValueAt(selectedRow, 0);
-
                     title = (String) bookTable.getValueAt(selectedRow, 2);
                     author = (String) bookTable.getValueAt(selectedRow, 3);
                     publisher = (String) bookTable.getValueAt(selectedRow, 4);
