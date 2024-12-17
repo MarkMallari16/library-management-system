@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 public class DeleteForm extends javax.swing.JFrame {
     
     public static AdminDashboard adminDashboard;
-
     public DeleteForm() {
         initComponents();
     }
