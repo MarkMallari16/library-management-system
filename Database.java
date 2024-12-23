@@ -1,4 +1,4 @@
-package bookingsystem;
+package library_management_system;
 
 import java.sql.*;
 

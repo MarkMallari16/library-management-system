@@ -1,4 +1,4 @@
-package bookingsystem;
+package library_management_system;
 
 import javax.swing.JOptionPane;
 

@@ -1,5 +1,5 @@
 
-package bookingsystem;
+package library_management_system;
 
 
 public class UserDashboard extends javax.swing.JFrame {
