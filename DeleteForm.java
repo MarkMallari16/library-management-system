@@ -32,6 +32,7 @@ public class DeleteForm extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
         jLabel2.setText("Enter Book ID to Delete:");
 
+        btnBack.setFont(new java.awt.Font("Poppins", 1, 12)); // NOI18N
         btnBack.setText("BACK");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -40,7 +41,7 @@ public class DeleteForm extends javax.swing.JFrame {
         });
 
         btnDelete.setBackground(new java.awt.Color(255, 0, 51));
-        btnDelete.setFont(new java.awt.Font("Poppins Black", 0, 12)); // NOI18N
+        btnDelete.setFont(new java.awt.Font("Poppins Black", 1, 12)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(255, 255, 255));
         btnDelete.setText("DELETE");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {

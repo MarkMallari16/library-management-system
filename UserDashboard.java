@@ -24,16 +24,16 @@ public class UserDashboard extends javax.swing.JFrame {
         setTitle("Dashboard");
 
         jLabel1.setFont(new java.awt.Font("Poppins Black", 0, 24)); // NOI18N
-        jLabel1.setText("USER");
+        jLabel1.setText("User Dashboard");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addContainerGap(681, Short.MAX_VALUE))
+                .addContainerGap(528, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

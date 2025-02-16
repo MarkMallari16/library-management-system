@@ -10,14 +10,14 @@ public class Database {
     private final String URL = "jdbc:mysql://localhost:3306/db_library_management_system";
     private final String USER = "root";
     private final String PASSWORD = "";
-    public static HashMap<Integer, String[]> userDb = new HashMap<Integer, String[]>();
-    public static HashMap<Integer, String[]> bookDb = new HashMap<Integer, String[]>();
+//    public static HashMap<Integer, String[]> userDb = new HashMap<Integer, String[]>();
+//    public static HashMap<Integer, String[]> bookDb = new HashMap<Integer, String[]>();
 
     public static void addAdmin() {
         String[] adminInfos = {"", "", "admin", "pogiako", "admin"};
         int adminId = 1000;
 
-        userDb.put(adminId, adminInfos);
+//        userDb.put(adminId, adminInfos);
     }
 
     public Connection getConnection() throws SQLException {
@@ -33,6 +33,7 @@ public class Database {
             return pstmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
+
             JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage());
             return 0;
         }
@@ -96,7 +97,6 @@ public class Database {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage());
             return 0;
-
         }
         return rowAffected;
     }

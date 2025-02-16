@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 import javax.swing.ImageIcon;
-import javax.swing.JScrollPane;
 
 public class AdminDashboard extends javax.swing.JFrame {
 
@@ -39,13 +38,13 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        updateNavigation = new javax.swing.JButton();
         dashboard = new javax.swing.JButton();
         addNavigation = new javax.swing.JButton();
         logoutBtn = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         deleteNavigation = new javax.swing.JButton();
+        addNavigation1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -68,14 +67,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
         jPanel1.setForeground(new java.awt.Color(204, 204, 204));
 
-        updateNavigation.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        updateNavigation.setText("Update Book");
-        updateNavigation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateNavigationActionPerformed(evt);
-            }
-        });
-
         dashboard.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         dashboard.setText("Dashboard");
         dashboard.addActionListener(new java.awt.event.ActionListener() {
@@ -95,7 +86,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         logoutBtn.setBackground(new java.awt.Color(255, 0, 51));
         logoutBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         logoutBtn.setForeground(new java.awt.Color(255, 255, 255));
-        logoutBtn.setText("Logout");
+        logoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout.png"))); // NOI18N
+        logoutBtn.setText("LOGOUT");
         logoutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutBtnActionPerformed(evt);
@@ -106,23 +98,23 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Library");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/library3.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(57, 57, 57)
                 .addComponent(jLabel2)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         deleteNavigation.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -130,6 +122,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         deleteNavigation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteNavigationActionPerformed(evt);
+            }
+        });
+
+        addNavigation1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        addNavigation1.setText("Add Book");
+        addNavigation1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addNavigation1ActionPerformed(evt);
             }
         });
 
@@ -144,20 +144,20 @@ public class AdminDashboard extends javax.swing.JFrame {
                     .addComponent(logoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                     .addComponent(addNavigation, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                     .addComponent(dashboard, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                    .addComponent(updateNavigation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deleteNavigation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
+                    .addComponent(deleteNavigation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                    .addComponent(addNavigation1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(9, 9, 9)
                 .addComponent(addNavigation, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(updateNavigation, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addNavigation1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(deleteNavigation, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -169,7 +169,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 12, Short.MAX_VALUE)
+            .addGap(0, 38, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,14 +227,6 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void updateNavigationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateNavigationActionPerformed
-        if (updateFormCheck == null || !updateFormCheck.isVisible()) {
-//            UpdateBookForm updateForm = new UpdateBookForm();
-            Dispose();
-//            updateForm.setVisible(true);
-        }
-    }//GEN-LAST:event_updateNavigationActionPerformed
 
     private void dashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardActionPerformed
 
@@ -350,6 +342,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteNavigationActionPerformed
 
+    private void addNavigation1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addNavigation1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addNavigation1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -388,6 +384,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addNavigation;
+    private javax.swing.JButton addNavigation1;
     private javax.swing.JTable bookTable;
     private javax.swing.JButton dashboard;
     private javax.swing.JButton deleteNavigation;
@@ -399,6 +396,5 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton logoutBtn;
-    private javax.swing.JButton updateNavigation;
     // End of variables declaration//GEN-END:variables
 }
