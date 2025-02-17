@@ -1,10 +1,11 @@
-
 package library_management_system;
 
+import javax.swing.JOptionPane;
 
 public class UserDashboard extends javax.swing.JFrame {
 
-   
+    private Login log;
+
     public UserDashboard() {
         initComponents();
     }
@@ -19,12 +20,24 @@ public class UserDashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        logoutBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
 
         jLabel1.setFont(new java.awt.Font("Poppins Black", 0, 24)); // NOI18N
         jLabel1.setText("User Dashboard");
+
+        logoutBtn.setBackground(new java.awt.Color(255, 0, 51));
+        logoutBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        logoutBtn.setForeground(new java.awt.Color(255, 255, 255));
+        logoutBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout.png"))); // NOI18N
+        logoutBtn.setText("LOGOUT");
+        logoutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -33,18 +46,36 @@ public class UserDashboard extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addContainerGap(528, Short.MAX_VALUE))
+                .addGap(363, 363, 363)
+                .addComponent(logoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(334, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(331, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
+        if (log == null || !log.isVisible()) {
+            log = new Login();
+            JOptionPane.showMessageDialog(this, "Successfully Logout.");
+            Dispose();
+
+            log.setVisible(true);
+
+        }
+    }//GEN-LAST:event_logoutBtnActionPerformed
+    public void Dispose() {
+        this.dispose();
+    }
 
     /**
      * @param args the command line arguments
@@ -83,5 +114,6 @@ public class UserDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton logoutBtn;
     // End of variables declaration//GEN-END:variables
 }
