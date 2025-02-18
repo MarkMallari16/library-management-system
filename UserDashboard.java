@@ -21,12 +21,28 @@ public class UserDashboard extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         logoutBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
 
-        jLabel1.setFont(new java.awt.Font("Poppins Black", 0, 24)); // NOI18N
-        jLabel1.setText("User Dashboard");
+        jLabel1.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
 
         logoutBtn.setBackground(new java.awt.Color(255, 0, 51));
         logoutBtn.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -39,25 +55,132 @@ public class UserDashboard extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Poppins Black", 0, 24)); // NOI18N
+        jLabel2.setText("User Dashboard");
+
+        jLabel4.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel4.setText("Available books");
+
+        jLabel5.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
+
+        jLabel8.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
+
+        jLabel9.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
+
+        jLabel11.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
+
+        jLabel13.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
+
+        jLabel14.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
+
+        jLabel15.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
+
+        jLabel16.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
+
+        jLabel17.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
+
+        jLabel18.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
+
+        jLabel19.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
+
+        jLabel20.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
+
+        jLabel21.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
+
+        jLabel22.setFont(new java.awt.Font("Poppins", 0, 18)); // NOI18N
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/book.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1)
-                .addGap(363, 363, 363)
-                .addComponent(logoutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(33, 33, 33)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel22)
+                            .addGap(50, 50, 50)
+                            .addComponent(jLabel19)
+                            .addGap(43, 43, 43)
+                            .addComponent(jLabel21)
+                            .addGap(42, 42, 42)
+                            .addComponent(jLabel18)
+                            .addGap(41, 41, 41)
+                            .addComponent(jLabel20))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel15)
+                            .addGap(50, 50, 50)
+                            .addComponent(jLabel16)
+                            .addGap(43, 43, 43)
+                            .addComponent(jLabel17)
+                            .addGap(42, 42, 42)
+                            .addComponent(jLabel13)
+                            .addGap(41, 41, 41)
+                            .addComponent(jLabel14))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(50, 50, 50)
+                            .addComponent(jLabel5)
+                            .addGap(43, 43, 43)
+                            .addComponent(jLabel8)
+                            .addGap(42, 42, 42)
+                            .addComponent(jLabel9)
+                            .addGap(41, 41, 41)
+                            .addComponent(jLabel11)))
+                    .addComponent(jLabel4))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(27, 27, 27)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(logoutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(331, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel22)
+                    .addComponent(jLabel19)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel20))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         pack();
@@ -114,6 +237,22 @@ public class UserDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JButton logoutBtn;
     // End of variables declaration//GEN-END:variables
 }
